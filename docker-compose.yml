@@ -1,0 +1,20 @@
+version: '3.3'
+services:
+  mysql_db_container:
+    image: mysql:latest
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql_db_data_container:/var/lib/mysql
+  myapp-main:
+    image: pdtcs/jdkimage:1.0
+    environment:
+      ADMINER_DEFAULT_SERVER: mysql_db_container
+    ports:
+      - 8889:8080
+
+volumes:
+  mysql_db_data_container:
